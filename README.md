@@ -40,4 +40,8 @@ Notes:
       problem.
     - We don't resize partitions automatically. It's recommended that users
       create a new partition in the free space using disklabel after boot.
+    - autoinstall.img needs to be built on an OpenBSD host, but can then be
+      copied to any system with qemu to run on any block device. This is how we
+      work around the bootstrapping problem on providers/regions without an
+      existing OpenBSD image.
 
