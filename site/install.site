@@ -18,3 +18,5 @@ chmod 640 /etc/hostname.xnf0
 
 echo 'export PATH=/usr/local/sbin:/usr/local/bin:$PATH' >>/etc/rc.firsttime
 echo 'cloud-init init' >>/etc/rc.firsttime
+
+syspatch
