@@ -17,6 +17,7 @@ rm -rf /tmp/cloud-init-${CLOUD_INIT_VERSION} /tmp/cloud-init.tar.gz
 
 chown root:wheel /etc/hostname.xnf0
 chmod 640 /etc/hostname.xnf0
+echo 'server 169.254.169.123' >>/etc/ntpd.conf
 
 echo 'export PATH=/usr/local/sbin:/usr/local/bin:$PATH' >>/etc/rc.firsttime
 echo 'cloud-init init' >>/etc/rc.firsttime
