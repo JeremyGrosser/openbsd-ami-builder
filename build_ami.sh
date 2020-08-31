@@ -29,7 +29,7 @@ dd if=/dev/zero of=autoinstall.img bs=512 count=1048600
 vnconfig vnd2 autoinstall.img
 fdisk -yi -b 960 -f /usr/mdec/mbr vnd2
 disklabel -w vnd2 install512
-autoinstallfs -m 0 -o space -S 512 -s 1048512 /dev/rvnd2a
+newfs -m 0 -o space -S 512 -s 1048512 /dev/rvnd2a
 mkdir autoinstall
 mount /dev/vnd2a autoinstall
 
