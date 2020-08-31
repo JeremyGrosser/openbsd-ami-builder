@@ -2,8 +2,6 @@
 
 CLOUD_INIT_VERSION='20.3'
 
-syspatch
-
 pkg_add bash dmidecode python3 py3-configobj py3-jinja2 py3-jsonschema py3-oauthlib py3-requests py3-setuptools py3-six py3-yaml sudo--
 ldconfig /usr/local/lib /usr/X11R6/lib
 

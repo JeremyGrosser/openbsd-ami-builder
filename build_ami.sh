@@ -9,6 +9,9 @@ fi
 if [ ! -f bsd.rd ]; then
 	ftp https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/bsd.rd
 fi
+if [ ! -f bsd.mp ]; then
+	ftp https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/bsd.mp
+fi
 
 cp disktab /etc/disktab
 
@@ -39,7 +42,9 @@ mount /dev/vnd0a install
 cp -r install/{6.7,boot,etc,bsd} new/
 cp bsd.rd new/
 cp boot.conf new/etc/
+cp bsd.mp new/6.7/amd64/bsd.mp
 tar czvf new/6.7/amd64/site67.tgz -C site .
+ls -l new/6.7/amd64/ >new/6.7/amd64/index.txt
 installboot -v -r new vnd2 /usr/mdec/biosboot new/boot
 
 umount install
