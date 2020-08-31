@@ -40,7 +40,7 @@ mount /dev/vnd0a install
 cp -r install/{6.7,boot,etc,bsd} autoinstall/
 cp bsd.rd autoinstall/
 cp boot.conf autoinstall/etc/
-cp bsd.mp autoinstall/6.7/amd64/bsd.mp
+cp bsd.mp site/bsd
 tar czvf autoinstall/6.7/amd64/site67.tgz -C site .
 ls -l autoinstall/6.7/amd64/ >autoinstall/6.7/amd64/index.txt
 installboot -v -r autoinstall vnd2 /usr/mdec/biosboot autoinstall/boot
