@@ -38,3 +38,6 @@ Notes:
     - password authentication is disabled for root.
     - We overwrite `/etc/disktab` on the build host. This is generally not a
       problem.
+    - We don't resize partitions automatically. It's recommended that users
+      create a new partition in the free space using disklabel after boot.
+
