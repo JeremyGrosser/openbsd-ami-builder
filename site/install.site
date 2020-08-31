@@ -1,0 +1,22 @@
+#!/bin/sh
+
+CLOUD_INIT_VERSION='20.3'
+
+syspatch
+
+pkg_add bash dmidecode python3 py3-configobj py3-jinja2 py3-jsonschema py3-oauthlib py3-requests py3-setuptools py3-six py3-yaml sudo--
+ldconfig /usr/local/lib /usr/X11R6/lib
+
+ftp -o /tmp/cloud-init.tar.gz https://github.com/canonical/cloud-init/archive/${CLOUD_INIT_VERSION}.tar.gz
+tar -xzf /tmp/cloud-init.tar.gz -C /tmp
+cd /tmp/cloud-init-${CLOUD_INIT_VERSION}
+/usr/local/bin/python3.7 setup.py build
+/usr/local/bin/python3.7 setup.py install -O1 --distro openbsd --skip-build
+cd /
+rm -rf /tmp/cloud-init-${CLOUD_INIT_VERSION} /tmp/cloud-init.tar.gz
+
+chown root:wheel /etc/hostname.xnf0
+chmod 640 /etc/hostname.xnf0
+
+echo 'export PATH=/usr/local/sbin:/usr/local/bin:$PATH' >>/etc/rc.firsttime
+echo 'cloud-init init' >>/etc/rc.firsttime
