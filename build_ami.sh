@@ -1,7 +1,7 @@
 #!/usr/local/bin/bash
 set -x
 
-TARGET=/dev/sd1c
+TARGET=/dev/rsd1c
 
 if [ ! -f install.fs ]; then
 	ftp -o install.fs https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/install67.fs
@@ -36,12 +36,11 @@ vnconfig vnd0 install.fs
 mkdir install
 mount /dev/vnd0a install
 
-cp -r install/* new/
+cp -r install/{6.7,boot,etc,bsd} new/
 cp bsd.rd new/
 cp boot.conf new/etc/
 tar czvf new/6.7/amd64/site67.tgz -C site .
 installboot -v -r new vnd2 /usr/mdec/biosboot new/boot
-ln -f new/bsd new/bsd.rd
 
 umount install
 vnconfig -u vnd0
@@ -50,13 +49,12 @@ rm -rf install
 umount new
 vnconfig -u vnd2
 rm -rf new
-mv new.fs install.fs
 
 qemu-system-x86_64 \
     -nographic \
     -serial mon:stdio \
     -netdev user,id=net0 -device virtio-net,netdev=net0 \
-    -hda install.fs \
+    -hda new.fs \
     -hdb ${TARGET} \
     -m 512 \
     -no-reboot
