@@ -3,15 +3,13 @@ set -x
 
 TARGET=/dev/rsd1c
 
-if [ ! -f install67.img ]; then
+sha256 -c SHA256SUMS
+if [ ! $? -eq 0 ]; then
 	ftp -o install67.img https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/install67.fs
-fi
-if [ ! -f bsd.rd ]; then
 	ftp https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/bsd.rd
-fi
-if [ ! -f bsd.mp ]; then
 	ftp https://cdn.openbsd.org/pub/OpenBSD/6.7/amd64/bsd.mp
 fi
+sha256 -c SHA256SUMS || exit $?
 
 cp disktab /etc/disktab
 
